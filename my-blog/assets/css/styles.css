@@ -27,3 +27,16 @@ footer {
     padding: 1rem;
     background-color: #f0f0f0;
 }
+
+#landing-page {
+    display: flex;
+    justify-content: space-between;
+}
+
+#content-area {
+    width: 60%; /* adjust as needed */
+}
+
+#image-area {
+    width: 40%; /* adjust as needed */
+}
