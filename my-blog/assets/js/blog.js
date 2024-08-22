@@ -1,30 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleThemeButton = document.getElementById('toggle-theme');
-    const backButton = document.getElementById('back-button');
-    const postsList = document.getElementById('posts-list');
+document.addEventListener('DOMContentLoaded', function() {
+    // Retrieve existing submissions from local storage
+    const existingSubmissions = JSON.parse(localStorage.getItem('submissions')) || [];
+  
+    // Display submissions
+    const submissionsContainer = document.querySelector('#submissionsContainer');
+  
+    if (submissionsContainer) {
+      existingSubmissions.forEach(submission => {
+        const newSubmissionSection = document.createElement('div');
+        newSubmissionSection.classList.add('submission');
+  
+        const submissionTitle = document.createElement('h3');
+        submissionTitle.textContent = `${submission.title}`;
 
-    const loadPosts = () => {
-        const posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
-        postsList.innerHTML = '';
-        posts.forEach(post => {
-            const postDiv = document.createElement('div');
-            postDiv.innerHTML = `
-                <h2>${post.title}</h2>
-                <p>${post.content}</p>
-                <small>by ${post.username}</small>
-            `;
-            postsList.appendChild(postDiv);
-        });
-    };
-
-    toggleThemeButton.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        toggleThemeButton.textContent = document.body.classList.contains('dark-mode') ? 'Dark Mode' : 'Light Mode';
-    });
-
-    backButton.addEventListener('click', () => {
-        window.location.href = 'index.html';
-    });
-
-    loadPosts();
-});
+        const submissionUsername = document.createElement('h4');
+        submissionUsername.textContent = `${submission.userName}`;
+  
+        const submissionContent = document.createElement('p');
+        submissionContent.textContent = `Content: \u00A0\u00A0${submission.content}`;
+  
+        newSubmissionSection.appendChild(submissionTitle);
+        newSubmissionSection.appendChild(submissionUsername);
+        newSubmissionSection.appendChild(submissionContent);
+  
+        submissionsContainer.appendChild(newSubmissionSection);
+      });
+    }
+  });
+  document.getElementById('darkModeToggle').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+  });
+  
